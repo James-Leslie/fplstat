@@ -27,13 +27,15 @@ theme:
     logo: img/futbol-regular-full-white.svg
     favicon: img/futbol-regular-full.svg
 
-nav:
-    - FPLstat: index.md
-    - Getting started: install.md
-    - Examples:
-        - Quickstart: examples/0_quickstart.ipynb
-    - Reference:
-        - reference/api.md
+markdown_extensions:
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.magiclink
+extra:
+  external_links:
+    target: _blank
+    rel: noopener noreferrer
 
 plugins:
     - search
@@ -44,18 +46,21 @@ plugins:
         handlers:
           python:
             options:
+                docstring_style: google
                 extensions:
                 - griffe_typingdoc
+                ignore_init_summary: false
+                members_order: source
                 show_root_heading: true
                 show_if_no_docstring: true
-                members_order: source
                 separate_signature: true
                 unwrap_annotated: true
                 merge_init_into_class: true
                 signature_crossrefs: true
                 show_symbol_type_heading: true
                 show_symbol_type_toc: true
-                # show_source: false
+                show_source: false
+                show_signature_annotations: true
                 summary:
                     functions: true
     # https://github.com/danielfrg/mkdocs-jupyter
@@ -63,3 +68,11 @@ plugins:
         ignore_h1_titles: True
         include: ["examples/*.ipynb"]
         execute: true
+
+nav:
+    - FPLstat: index.md
+    - Getting started: getting_started.md
+    - Examples:
+        - Quickstart: examples/0_quickstart.ipynb
+    - Reference:
+        - reference/api.md
