@@ -1,1 +1,3 @@
-from .api.client import FPLstat as FPLstat
+from .client import FPLstat
+
+__all__ = ["FPLstat"]

@@ -1,38 +1,60 @@
+from typing import Any, Dict
+
 import requests
 
+BASE_URL = "https://fantasy.premierleague.com/api/"
 
-class FPLstat:
-    """
-    `FPLstat` client, the main entry point for interacting with the Fantasy Premier
-    League API.
 
-    ## Example
-    ```python
-    from fplstat import FPLstat
-
-    client = FPLstat()
-    ```
-    """
-
-    BASE_URL = "https://fantasy.premierleague.com/api"
+class DataClient:
+    """Handles FPL API requests with lazy loading and caching."""
 
     def __init__(self):
-        self.session = requests.Session()
-        self._cache = {}
+        """Initialize the DataClient with lazy loading."""
+        self._bootstrap_static = None
+        self._fixtures = None
 
-    def get_bootstrap(self, use_cache=True):
-        if use_cache and "bootstrap" in self._cache:
-            return self._cache["bootstrap"]
+    def _ensure_bootstrap_loaded(self):
+        """Ensure bootstrap data is loaded."""
+        if self._bootstrap_static is None:
+            response = requests.get(f"{BASE_URL}bootstrap-static/")
+            response.raise_for_status()
+            self._bootstrap_static = response.json()
 
-        response = self.session.get(f"{self.BASE_URL}/bootstrap-static/")
+    @property
+    def elements(self):
+        """Get all elements (players) for the season."""
+        self._ensure_bootstrap_loaded()
+        return self._bootstrap_static.get("elements", [])
+
+    @property
+    def teams(self):
+        """Get all teams for the season."""
+        self._ensure_bootstrap_loaded()
+        return self._bootstrap_static.get("teams", [])
+
+    @property
+    def events(self):
+        """Get all events (gameweeks) for the season."""
+        self._ensure_bootstrap_loaded()
+        return self._bootstrap_static.get("events", [])
+
+    @property
+    def element_types(self):
+        """Get player position types."""
+        self._ensure_bootstrap_loaded()
+        return self._bootstrap_static.get("element_types", [])
+
+    @property
+    def fixtures(self):
+        """Get all fixtures for the season."""
+        if self._fixtures is None:
+            response = requests.get(f"{BASE_URL}/fixtures/")
+            response.raise_for_status()
+            self._fixtures = response.json()
+        return self._fixtures
+
+    def get_element_summary(self, player_id: int) -> Dict[str, Any]:
+        """Get detailed history for a specific player."""
+        response = requests.get(f"{BASE_URL}/element-summary/{player_id}/")
         response.raise_for_status()
-        data = response.json()
-
-        if use_cache:
-            self._cache["bootstrap"] = data
-        return data
-
-    def get_elements(self):
-        """Convenience method that extracts just elements (players)"""
-        bootstrap = self.get_bootstrap()
-        return bootstrap["elements"]
+        return response.json()

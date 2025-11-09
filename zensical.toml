@@ -1,0 +1,22 @@
+[project]
+site_name = "FPLstat"
+site_url = "https://james-leslie.github.io/fplstat/"
+site_description = "Python package for loading and transforming data from the Fantasy Premier League API"
+site_author = "James Leslie"
+repo_url = "https://github.com/James-Leslie/fplstat"
+repo_name = "James-Leslie/fplstat"
+
+[project.theme]
+logo = "assets/futbol-regular-full.svg"
+favicon = "assets/futbol-regular-full.svg"
+features = [
+    "content.code.copy",
+    "content.code.annotate",
+    "navigation.instant",
+    "navigation.tabs",
+    "navigation.tabs.sticky",
+    "navigation.top",
+    "toc.follow",
+]
+
+[project.markdown_extensions.pymdownx.highlight]
