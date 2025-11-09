@@ -21,8 +21,7 @@ jobs:
       - uses: astral-sh/setup-uv@v6
         with:
           version: "latest"
-          enable-cache: true
-      - uses: astral-sh/setup-uv@v6
+      - run: uv python install 3.13
       - run: uv add zensical
       - run: uv run zensical build --clean
       - uses: actions/upload-pages-artifact@v4
