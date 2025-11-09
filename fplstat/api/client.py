@@ -1,5 +1,3 @@
-"""FPL API endpoint definitions and utilities."""
-
 from typing import Any, Dict
 
 import requests

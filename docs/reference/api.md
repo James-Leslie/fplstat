@@ -1,3 +1,0 @@
-# `FPLstat` class
-
-::: fplstat.FPLstat

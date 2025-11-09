@@ -1,4 +1,4 @@
-# Fantasy Premier League (FPL) Public API Reference
+# Data reference
 The FPL API is undocumented but publicly accessible. These endpoints provide the data that powers the official FPL website and app.
 
 **Base URL:**
