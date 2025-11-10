@@ -14,18 +14,25 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/configure-pages@v5
       - uses: actions/checkout@v5
-      - uses: astral-sh/setup-uv@v6
+
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v7
         with:
-          version: "latest"
-      - run: uv python install 3.13
-      - run: uv add zensical
-      - run: uv run zensical build --clean
+          enable-cache: true
+      
+      - name: Install Python 3.13
+        run: uv python install 3.13
+      
+      - name: Build documentation with Zensical
+        run: uvx zensical build --clean
+      
       - uses: actions/upload-pages-artifact@v4
         with:
           path: site
+      
       - uses: actions/deploy-pages@v4
         id: deployment
