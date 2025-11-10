@@ -22,7 +22,5 @@ FPLstat is a Python library that provides easy access to Fantasy Premier League 
 ``` py
 from fplstat import FPLstat
 
-
-# Initialize FPLstat client
 fpl = FPLstat()
 ```
