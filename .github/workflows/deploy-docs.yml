@@ -11,6 +11,9 @@ permissions:
 
 jobs:
   deploy:
+    defaults:
+      run:
+        shell: bash
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -28,3 +31,4 @@ jobs:
         with:
           path: site
       - uses: actions/deploy-pages@v4
+        id: deployment
