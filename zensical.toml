@@ -20,3 +20,8 @@ features = [
 ]
 
 [project.markdown_extensions.pymdownx.highlight]
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.snippets]
+[project.markdown_extensions.pymdownx.superfences]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
