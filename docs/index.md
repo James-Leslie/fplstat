@@ -6,10 +6,8 @@ FPLstat is a Python library that provides easy access to Fantasy Premier League 
 === "`uv`"
 
     ``` sh
-    uv add fplstat # (1)!
+    uv add fplstat
     ```
-    
-    1. If you haven't heard of [`uv`](https://docs.astral.sh/uv/), we highly recommend checking it out!
 
 === "`pip`"
 
@@ -22,7 +20,5 @@ FPLstat is a Python library that provides easy access to Fantasy Premier League 
 ``` py
 from fplstat import FPLstat
 
-
-# Initialize FPLstat client
 fpl = FPLstat()
 ```
