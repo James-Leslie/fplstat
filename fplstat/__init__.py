@@ -1,3 +1,3 @@
-from .client import FPLstat
+from .client import FPLClient
 
-__all__ = ["FPLstat"]
+__all__ = ["FPLClient"]
