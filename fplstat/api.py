@@ -26,7 +26,7 @@ class APIClient:
         """Returns raw data with keys: elements, teams, element_types, events, etc."""
         data = self._get("bootstrap-static/")
         # Validate the response structure
-        BootstrapStaticResponse.parse_obj(**data)
+        BootstrapStaticResponse.model_validate(data)
         return data
 
     def fetch_fixtures(self) -> List[Dict[str, Any]]:
