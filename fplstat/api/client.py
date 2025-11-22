@@ -27,7 +27,7 @@ class APIClient:
         # Return the JSON content of the response
         return response.json()
 
-    def fetch_bootstrap_static(self) -> BootstrapStaticResponse:
+    def get_bootstrap_static(self) -> BootstrapStaticResponse:
         """Returns raw data with keys: elements, teams, element_types, events, etc."""
 
         # Fetch data from the bootstrap-static endpoint
@@ -35,14 +35,14 @@ class APIClient:
         # Validate the response structure
         return BootstrapStaticResponse(**data)
 
-    def fetch_fixtures(self) -> FixturesResponse:
+    def get_fixtures(self) -> FixturesResponse:
         """Fetch all fixtures for the season"""
 
         # Fetch data from the fixtures endpoint
         data = self._get("fixtures/")
-        return FixturesResponse(fixtures=[item for item in data])
+        return FixturesResponse(fixtures=data)
 
-    def fetch_element_summary(self, element_id: int) -> Dict[str, Any]:
+    def get_element_summary(self, element_id: int) -> Dict[str, Any]:
         """
         Fetch detailed data for a specific element including historical data
         """
