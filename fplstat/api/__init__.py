@@ -1,4 +1,4 @@
 from .client import APIClient
-from .models import BootstrapStaticResponse, Fixture, FixturesResponse
+from .models import BootstrapStaticResponse, FixturesResponse
 
-__all__ = ["APIClient", "BootstrapStaticResponse", "Fixture", "FixturesResponse"]
+__all__ = ["APIClient", "BootstrapStaticResponse", "FixturesResponse"]
