@@ -4,21 +4,7 @@ from typing import Optional
 from pydantic import BaseModel, ConfigDict
 
 
-class PlayerTransformer:
-    """Transforms raw FPL API player data for analysis"""
-
-    @staticmethod
-    def transform(raw_data: dict) -> dict:
-        """Convert raw API player data to analysis-ready format"""
-        transformed = raw_data.copy()
-
-        # Convert price from API units (59) to millions (5.9)
-        transformed["now_cost"] = raw_data["now_cost"] / 10
-
-        return transformed
-
-
-class Player(BaseModel):
+class Element(BaseModel):
     """Model for FPL player data from bootstrap-static elements"""
 
     model_config = ConfigDict(extra="allow")

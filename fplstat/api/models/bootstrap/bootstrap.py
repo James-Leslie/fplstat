@@ -2,6 +2,8 @@ from typing import Any, Dict, List
 
 from pydantic import BaseModel, ConfigDict
 
+from .element import Element
+
 
 class BootstrapStaticResponse(BaseModel):
     """Response model for the bootstrap-static endpoint"""
@@ -11,7 +13,7 @@ class BootstrapStaticResponse(BaseModel):
     chips: List[Dict[str, Any]]
     element_stats: List[Dict[str, Any]]
     element_types: List[Dict[str, Any]]
-    elements: List[Dict[str, Any]]
+    elements: List[Element]
     events: List[Dict[str, Any]]
     game_config: Dict[str, Any]
     game_settings: Dict[str, Any]
