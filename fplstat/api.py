@@ -16,7 +16,7 @@ class APIClient:
         self.session.headers.update({"User-Agent": "fplstat"})
 
     def _get(self, endpoint: str) -> Any:
-        """Make a GET request to an endpoint"""
+        """Make a GET request to an endpoint and return the JSON response"""
 
         # Construct full URL
         url = f"{self.BASE_URL}{endpoint}"
