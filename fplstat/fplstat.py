@@ -1,7 +1,7 @@
 import pandas as pd
 
 from .api import APIClient
-from .transforms import transform_player
+from .transforms import transform_players
 
 
 class FPLStat:
@@ -15,9 +15,9 @@ class FPLStat:
         """Get transformed player data"""
 
         # Transform each player using the transform_player function
-        data = [transform_player(e) for e in self.raw_data.elements]
+        players = transform_players(self.raw_data.elements)
         # Convert list of dicts to DataFrame
-        return pd.DataFrame(data)
+        return players
 
     def get_fixtures(self):
         """Returns list of fixtures"""
