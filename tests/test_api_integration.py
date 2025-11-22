@@ -16,7 +16,7 @@ def test_fetch_bootstrap_static_structure():
 
     # Check for new fields
     expected_fields = set(BootstrapStaticResponse.model_fields.keys())
-    actual_fields = set(data.keys())
+    actual_fields = set(data.model_dump().keys())
     new_fields = actual_fields - expected_fields
 
     if new_fields:
