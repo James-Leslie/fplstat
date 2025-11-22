@@ -1,7 +1,21 @@
 from datetime import date, datetime
 from typing import Optional
 
-from pydantic import BaseModel, ConfigDict, field_validator
+from pydantic import BaseModel, ConfigDict
+
+
+class PlayerTransformer:
+    """Transforms raw FPL API player data for analysis"""
+
+    @staticmethod
+    def transform(raw_data: dict) -> dict:
+        """Convert raw API player data to analysis-ready format"""
+        transformed = raw_data.copy()
+
+        # Convert price from API units (59) to millions (5.9)
+        transformed["now_cost"] = raw_data["now_cost"] / 10
+
+        return transformed
 
 
 class Player(BaseModel):
@@ -131,7 +145,7 @@ class Player(BaseModel):
     has_temporary_code: bool
 
     # Additional info
-    region: int
+    region: Optional[int] = None
     birth_date: Optional[date] = None
     team_join_date: Optional[date] = None
     code: int
@@ -141,9 +155,3 @@ class Player(BaseModel):
     # Predicted points
     ep_this: float  # Expected points this gameweek
     ep_next: float  # Expected points next gameweek
-
-    @field_validator("now_cost", mode="before")
-    @classmethod
-    def transform_price(cls, v):
-        """Convert API price units (59) to actual millions (5.9)"""
-        return v / 10 if isinstance(v, int) else v

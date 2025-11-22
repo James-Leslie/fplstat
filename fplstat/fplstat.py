@@ -1,7 +1,7 @@
 from typing import List, Optional
 
 from .api import APIClient
-from .models import Player
+from .models import Player, PlayerTransformer
 
 
 class FPLStatClient:
@@ -26,8 +26,11 @@ class FPLStat:
     def get_players(self) -> List[Player]:
         """Get transformed player data"""
 
-        # Transform raw dict elements into Player objects
-        return [Player(**element) for element in self.raw_data.elements]
+        # Transform raw dict elements, then create Player objects
+        return [
+            Player(**PlayerTransformer.transform(raw_element))
+            for raw_element in self.raw_data.elements
+        ]
 
     def get_fixture_difficulty_matrix(self):
         """Returns fixture difficulty matrix"""
