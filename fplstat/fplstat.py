@@ -1,7 +1,7 @@
-from typing import List
+import pandas as pd
 
 from .api import APIClient
-from .models import Fixture, Player, PlayerTransformer
+from .transforms import transform_player
 
 
 class FPLStat:
@@ -11,21 +11,17 @@ class FPLStat:
         # Get raw data from bootstrap-static endpoint
         self.raw_data = self.api.get_bootstrap_static()
 
-    def get_players(self) -> List[Player]:
+    def get_players(self) -> pd.DataFrame:
         """Get transformed player data"""
 
-        # Transform raw dict elements, then create Player objects
-        return [
-            Player(**PlayerTransformer.transform(raw_element))
-            for raw_element in self.raw_data.elements
-        ]
+        # Transform each player using the transform_player function
+        data = [transform_player(e) for e in self.raw_data.elements]
+        # Convert list of dicts to DataFrame
+        return pd.DataFrame(data)
 
-    def get_fixtures(self) -> List[Fixture]:
+    def get_fixtures(self):
         """Returns list of fixtures"""
-
-        # Get raw fixture data from API client
-        raw_fixtures = self.api.get_fixtures()
-        return [Fixture(**fixture) for fixture in raw_fixtures.fixtures]
+        pass
 
     def get_fixture_difficulty_matrix(self):
         """Returns fixture difficulty matrix"""
