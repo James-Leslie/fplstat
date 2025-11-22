@@ -1,5 +1,5 @@
 from datetime import date, datetime
-from typing import Any, Dict, List, Optional, Union
+from typing import Optional
 
 from pydantic import BaseModel, ConfigDict
 
@@ -71,7 +71,7 @@ class Player(BaseModel):
     red_cards: int
     saves: int
     bonus: int
-    bps: int
+    bps: int  # Bonus points system
     starts: int
 
     # Advanced stats
@@ -155,27 +155,3 @@ class Player(BaseModel):
     # Predicted points
     ep_this: float  # Expected points this gameweek
     ep_next: float  # Expected points next gameweek
-
-
-class Fixture(BaseModel):
-    """Model for a single fixture"""
-
-    model_config = ConfigDict(extra="allow")
-
-    code: int
-    event: int
-    finished: bool
-    finished_provisional: bool
-    id: int
-    kickoff_time: datetime
-    minutes: int
-    provisional_start_time: bool
-    pulse_id: int
-    started: bool
-    stats: List[Dict[str, Any]]
-    team_a: int
-    team_a_difficulty: int
-    team_a_score: Union[int, None]
-    team_h: int
-    team_h_difficulty: int
-    team_h_score: Union[int, None]

@@ -18,9 +18,3 @@ class BootstrapStaticResponse(BaseModel):
     phases: List[Dict[str, Any]]
     teams: List[Dict[str, Any]]
     total_players: int
-
-
-class FixturesResponse(BaseModel):
-    """Response model for the fixtures endpoint"""
-
-    fixtures: List[Dict[str, Any]]
