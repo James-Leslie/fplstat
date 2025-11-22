@@ -1,21 +1,37 @@
 import warnings
 
-from fplstat.api import APIClient, BootstrapStaticResponse
+import pytest
+
+from fplstat.api import APIClient
+from fplstat.api.models import BootstrapStaticResponse, Element
 
 
-def test_fetch_bootstrap_static_structure():
+@pytest.fixture(scope="session")
+def bootstrap_static_data():
+    """Get real API data once per test session (cached for performance)"""
+    try:
+        client = APIClient()
+        return client.get_bootstrap_static()
+    except Exception as e:
+        pytest.skip(f"Skipping tests: API unavailable ({e})")
+
+
+@pytest.fixture
+def sample_player(bootstrap_static_data):
+    """Get a real player from live API data"""
+    # Return the first player from real API data
+    return bootstrap_static_data.elements[0]
+
+
+def test_bootstrap_static_model(bootstrap_static_data):
     """Verify the API response matches our expected structure"""
-    client = APIClient()
-    data = client.get_bootstrap_static()
 
     # This will raise ValidationError if structure doesn't match
-
-    # Validate structure
-    response = BootstrapStaticResponse.model_validate(data)
+    response = BootstrapStaticResponse.model_validate(bootstrap_static_data)
 
     # Check for new fields
     expected_fields = set(BootstrapStaticResponse.model_fields.keys())
-    actual_fields = set(data.model_dump().keys())
+    actual_fields = set(bootstrap_static_data.model_dump().keys())
     new_fields = actual_fields - expected_fields
 
     if new_fields:
@@ -23,3 +39,14 @@ def test_fetch_bootstrap_static_structure():
 
     # Additional sanity checks
     assert len(response.teams) == 20  # PL has 20 teams
+
+    """Test the transformation pipeline from raw API data to business models"""
+
+
+def test_element_model(sample_player):
+    """Test that a sample player from live API data validates against Element model"""
+    # This will raise ValidationError if structure doesn't match
+    player = Element.model_validate(sample_player)
+    assert isinstance(player, Element)
+    assert hasattr(player, "first_name")
+    assert hasattr(player, "now_cost")
