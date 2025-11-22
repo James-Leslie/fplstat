@@ -1,7 +1,6 @@
 import warnings
 
-from fplstat.api import APIClient
-from fplstat.models import BootstrapStaticResponse
+from fplstat.api import APIClient, BootstrapStaticResponse
 
 
 def test_fetch_bootstrap_static_structure():
