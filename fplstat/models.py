@@ -167,7 +167,7 @@ class Fixture(BaseModel):
     finished: bool
     finished_provisional: bool
     id: int
-    kickoff_time: str
+    kickoff_time: datetime
     minutes: int
     provisional_start_time: bool
     pulse_id: int
