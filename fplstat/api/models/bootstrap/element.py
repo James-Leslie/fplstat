@@ -22,7 +22,7 @@ class Element(BaseModel):
     team_code: int
 
     # Pricing and ownership
-    now_cost: float  # Price in millions (5.9)
+    now_cost: int
     selected_by_percent: float
     cost_change_start: int
     cost_change_event: int
