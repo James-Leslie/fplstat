@@ -6,7 +6,7 @@ from fplstat.api import APIClient, BootstrapStaticResponse
 def test_fetch_bootstrap_static_structure():
     """Verify the API response matches our expected structure"""
     client = APIClient()
-    data = client.fetch_bootstrap_static()
+    data = client.get_bootstrap_static()
 
     # This will raise ValidationError if structure doesn't match
 

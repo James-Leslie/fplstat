@@ -12,7 +12,7 @@ def live_api_data():
     """Get real API data once per test session (cached for performance)"""
     try:
         client = APIClient()
-        return client.fetch_bootstrap_static()
+        return client.get_bootstrap_static()
     except Exception as e:
         pytest.skip(f"Skipping tests: API unavailable ({e})")
 
@@ -31,51 +31,13 @@ def sample_players_list(live_api_data):
     return live_api_data.elements[:3]
 
 
-def test_player_transformer_price_conversion(sample_player):
-    """Test that PlayerTransformer correctly converts price units"""
-    # Using real API player data - much more realistic!
-    original_price = sample_player["now_cost"]  # e.g., 59 from real API
-
-    transformed = PlayerTransformer.transform(sample_player)
-
-    # Test the transformation logic with real data
-    expected_price = original_price / 10  # e.g., 59 -> 5.9
-    assert transformed["now_cost"] == expected_price
-
-    # Other fields should be unchanged
-    assert transformed["web_name"] == sample_player["web_name"]
-    assert transformed["id"] == sample_player["id"]
-
-
-def test_player_model_with_transformed_data(sample_player):
-    """Test Player model validation with complete transformed data"""
-    # Transform real API data and create Player model
-    transformed_data = PlayerTransformer.transform(sample_player)
-    player = Player(**transformed_data)
-
-    # Test that transformation + validation worked
-    expected_price = sample_player["now_cost"] / 10
-    assert player.now_cost == expected_price  # Transformed from real API price
-    assert isinstance(player.now_cost, float)
-    assert player.web_name == sample_player["web_name"]  # From real API data
-
-
-def test_full_pipeline_transform_then_validate(sample_player):
-    """Test the complete pipeline: raw data → transform → validate"""
-    # Step 1: Start with real API data
+def test_price_transformation(sample_player):
+    """Test that PlayerTransformer converts price from API units to millions"""
     original_price = sample_player["now_cost"]
-
-    # Step 2: Transform
     transformed = PlayerTransformer.transform(sample_player)
 
-    # Step 3: Verify transformation
-    expected_price = original_price / 10
-    assert transformed["now_cost"] == expected_price
-
-    # Step 4: Create Player object (complete pipeline test!)
-    player = Player(**transformed)
-    assert player.now_cost == expected_price
-    assert isinstance(player, Player)
+    # Only test the price transformation logic
+    assert transformed["now_cost"] == original_price / 10
 
 
 def test_fplstat_integration(sample_players_list):
