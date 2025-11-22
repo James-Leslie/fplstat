@@ -1,3 +1,3 @@
-from .player import transform_player
+from .player import transform_players
 
-__all__ = ["transform_player"]
+__all__ = ["transform_players"]
