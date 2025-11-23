@@ -6,13 +6,27 @@ from .transforms import transform_players
 
 class FPLStat:
     def __init__(self):
-        # Initialize API client, which fetches raw data from FPL API
+        """Initializes the FPLStat client."""
         self.api = APIClient()
-        # Get raw data from bootstrap-static endpoint
-        self.raw_data = self.api.get_bootstrap_static()
+        self._raw_data = None
+
+    @property
+    def raw_data(self):
+        """
+        Property to lazily fetch and cache the bootstrap-static data.
+        The data is fetched only on the first access.
+        """
+        if self._raw_data is None:
+            # Get raw data from bootstrap-static endpoint
+            self._raw_data = self.api.get_bootstrap_static()
+        return self._raw_data
 
     def get_players(self) -> pd.DataFrame:
-        """Get transformed player data"""
+        """Get transformed player data
+
+        Returns:
+            pd.DataFrame: A DataFrame containing player data.
+        """
 
         # Transform each player using the transform_player function
         players = transform_players(self.raw_data.elements)
