@@ -46,8 +46,13 @@ class Element(BaseModel):
 
     # Game stats
     minutes: int
+    starts: int
     goals_scored: int
     assists: int
+    clearances_blocks_interceptions: int
+    recoveries: int
+    tackles: int
+    defensive_contribution: int
     clean_sheets: int
     goals_conceded: int
     own_goals: int
@@ -58,7 +63,6 @@ class Element(BaseModel):
     saves: int
     bonus: int
     bps: int  # Bonus points system
-    starts: int
 
     # Advanced stats
     influence: float
@@ -116,10 +120,6 @@ class Element(BaseModel):
     penalties_text: str
 
     # Other stats
-    clearances_blocks_interceptions: int
-    recoveries: int
-    tackles: int
-    defensive_contribution: int
     dreamteam_count: int
 
     # Flags
