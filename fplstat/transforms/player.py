@@ -1,5 +1,6 @@
 from typing import List
 
+import numpy as np
 import pandas as pd
 
 from fplstat.api.models import Element
@@ -118,26 +119,39 @@ def transform_players(data: List[Element]) -> pd.DataFrame:
         gi_90=lambda x: (x.goals_scored + x.assists) / x.minutes * 90,
         b_90=lambda x: x.bonus / x.minutes * 90,
         xP=lambda x: (
-            # 1 point for every game played
-            x.games_played
-            # 1 extra point for every start
-            + x.starts
-            # 6 points per goal for a goalkeeper or defender
-            + (6 * x.expected_goals).where(x.element_type.isin([1, 2]), 0)
-            # 5 points per goal for a midfielder
-            + (5 * x.expected_goals).where(x.element_type == 3, 0)
-            # 4 points per goal for a forward
-            + (4 * x.expected_goals).where(x.element_type == 4, 0)
-            # 3 points per assist (all positions)
+            # Appearance points
+            x.games_played  # 1 point for every game played
+            + x.starts  # 1 extra point for every start (60+ min)
+            # Goals - position dependent
+            + (6 * x.expected_goals).where(x.element_type.isin([1, 2]), 0)  # GK/DEF
+            + (5 * x.expected_goals).where(x.element_type == 3, 0)  # MID
+            + (4 * x.expected_goals).where(x.element_type == 4, 0)  # FWD
+            # Assists - 3 points (all positions)
             + 3 * x.expected_assists
-            # defensive contribution points for defenders
-            + (2 * x.defensive_contribution / 10).where(x.element_type == 2, 0)
-            # defensive contribution points for midfielders and forwards
+            # Clean sheets - Poisson probability from expected goals conceded
+            + (4 * np.exp(-x.expected_goals_conceded)).where(
+                x.element_type.isin([1, 2]), 0
+            )  # GK/DEF
+            + (np.exp(-x.expected_goals_conceded)).where(x.element_type == 3, 0)  # MID
+            # Goals conceded - minus 1 point per 2 goals for GK/DEF
+            - (x.expected_goals_conceded / 2).where(x.element_type.isin([1, 2]), 0)
+            # Saves - 1 point per 3 saves for GK only
+            + (x.saves / 3).where(x.element_type == 1, 0)
+            # Defensive contribution points - position dependent
+            + (2 * x.defensive_contribution / 10).where(x.element_type == 2, 0)  # DEF
             + (2 * x.defensive_contribution / 12).where(x.element_type.isin([3, 4]), 0)
-            # 4 points per clean sheet for goalkeepers and defenders
-            + (4 * x.clean_sheets).where(x.element_type.isin([1, 2]), 0)
-            # 1 point per clean sheet for midfielders
-            + (x.clean_sheets).where(x.element_type == 3, 0)
+            # Penalty saves - 5 points
+            + 5 * x.penalties_saved
+            # Penalty misses - minus 2 points
+            - 2 * x.penalties_missed
+            # Yellow cards - minus 1 point
+            - x.yellow_cards
+            # Red cards - minus 3 points
+            - 3 * x.red_cards
+            # Own goals - minus 2 points
+            - 2 * x.own_goals
+            # Bonus points
+            + x.bonus
         ),
         xP_90=lambda x: x.xP / x.minutes * 90,
     )
