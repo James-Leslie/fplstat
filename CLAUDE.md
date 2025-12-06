@@ -29,6 +29,7 @@ Additional instructions can be found in @claude/zensical-instructions.md.
 - Type hints and Google-style docstrings required
 - Use f-strings, follow PEP 8
 - Self-documenting code with clear naming
+- Use double quotes for strings
 
 # Workflow Guidelines
 1. Do not make direct changes to the main branch. Use git branches for new features and bug fixes, via terminal commands, you may use either the GitHub CLI (e.g. `gh pr create`) or standard git commands (`git checkout -b <branch-name>`), as needed

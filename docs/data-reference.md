@@ -5,6 +5,9 @@ The FPL API is undocumented but publicly accessible. These endpoints provide the
 
     https://fantasy.premierleague.com/api/
 
+**Note:**
+All endpoints are public and require no authentication, but excessive requests may result in rate limiting.
+
 ## Main Endpoints
 
 ### `bootstrap-static/`
@@ -37,8 +40,3 @@ The FPL API is undocumented but publicly accessible. These endpoints provide the
 
 ### `entry/{entry_id}/event/{event_id}/picks/`
 - **Description:** Squad picks for a user's team in a specific gameweek.
-
----
-
-**Note:**
-All endpoints are public and require no authentication, but excessive requests may result in rate limiting.

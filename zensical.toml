@@ -5,6 +5,12 @@ site_description = "Python package for loading and transforming data from the Fa
 site_author = "James Leslie"
 repo_url = "https://github.com/James-Leslie/fplstat"
 repo_name = "James-Leslie/fplstat"
+nav = [
+    # Read more: https://zensical.org/docs/setup/navigation/
+    { "Get started" = "index.md" },
+    { "Expected Points (xP)" = "expected-points.md" },
+    { "FPL API reference" = "data-reference.md" },
+]
 
 [project.theme]
 logo = "assets/futbol-regular-full.svg"
