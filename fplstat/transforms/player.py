@@ -17,6 +17,7 @@ KEEP_COLUMNS = {
     "now_cost": "price",
     "selected_by_percent": "ownership_pct",
     # Game stats
+    "games_played": None,
     "starts": None,
     "minutes": None,
     "total_points": "points",
@@ -101,13 +102,15 @@ def transform_players(data: List[Element]) -> pd.DataFrame:
     df = df.query("minutes > 0 and can_select == True")
 
     # 3. Convert now_cost to millions
-    df["price"] = df["now_cost"] / 10
+    df["now_cost"] = df["now_cost"] / 10
 
-    # 4. Create full_name column
-    df = df.assign(full_name=df.first_name + " " + df.second_name)
-
-    # 3. Calculate extra columns
+    # 4. Calculate extra columns
     df = df.assign(
+        full_name=lambda x: x.first_name + " " + x.second_name,
+        games_played=lambda x: (x.total_points / x.points_per_game)
+        .where(x.total_points > 0, 0)
+        .round(0)
+        .astype(int),
         gi=lambda x: x.goals_scored + x.assists,
         p_90=lambda x: x.total_points / x.minutes * 90,
         g_90=lambda x: x.goals_scored / x.minutes * 90,
@@ -115,9 +118,26 @@ def transform_players(data: List[Element]) -> pd.DataFrame:
         gi_90=lambda x: (x.goals_scored + x.assists) / x.minutes * 90,
         b_90=lambda x: x.bonus / x.minutes * 90,
         xP=lambda x: (
-            x.expected_goals * 4
-            + x.expected_assists * 3
-            - x.expected_goals_conceded * 1
+            # 1 point for every game played
+            x.games_played
+            # 1 extra point for every start
+            + x.starts
+            # 6 points per goal for a goalkeeper or defender
+            + (6 * x.expected_goals).where(x.element_type.isin([1, 2]), 0)
+            # 5 points per goal for a midfielder
+            + (5 * x.expected_goals).where(x.element_type == 3, 0)
+            # 4 points per goal for a forward
+            + (4 * x.expected_goals).where(x.element_type == 4, 0)
+            # 3 points per assist (all positions)
+            + 3 * x.expected_assists
+            # defensive contribution points for defenders
+            + (2 * x.defensive_contribution / 10).where(x.element_type == 2, 0)
+            # defensive contribution points for midfielders and forwards
+            + (2 * x.defensive_contribution / 12).where(x.element_type.isin([3, 4]), 0)
+            # 4 points per clean sheet for goalkeepers and defenders
+            + (4 * x.clean_sheets).where(x.element_type.isin([1, 2]), 0)
+            # 1 point per clean sheet for midfielders
+            + (x.clean_sheets).where(x.element_type == 3, 0)
         ),
         xP_90=lambda x: x.xP / x.minutes * 90,
     )
