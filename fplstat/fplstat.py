@@ -28,9 +28,8 @@ class FPLStat:
             pd.DataFrame: A DataFrame containing player data.
         """
 
-        # Transform each player using the transform_player function
+        # Transform players using the transform_players function
         players = transform_players(self.raw_data.elements)
-        # Convert list of dicts to DataFrame
         return players
 
     def get_fixtures(self):

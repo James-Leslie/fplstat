@@ -40,8 +40,6 @@ def test_bootstrap_static_model(bootstrap_static_data):
     # Additional sanity checks
     assert len(response.teams) == 20  # PL has 20 teams
 
-    """Test the transformation pipeline from raw API data to business models"""
-
 
 def test_element_model(sample_player):
     """Test that a sample player from live API data validates against Element model"""

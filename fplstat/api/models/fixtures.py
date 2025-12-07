@@ -31,4 +31,4 @@ class Fixture(BaseModel):
 class FixturesResponse(BaseModel):
     """Response model for the fixtures endpoint"""
 
-    fixtures: List[Dict[str, Any]]
+    fixtures: List[Fixture]
