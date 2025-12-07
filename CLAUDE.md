@@ -49,7 +49,8 @@ Additional instructions can be found in @claude/zensical-instructions.md.
 3. Write tests for new features and bug fixes, ensure high coverage
 4. Frequent commits with descriptive messages
 5. Update documentation for new features and changes
-6. When ready, create a pull request for review
+6. **IMPORTANT: Bump version before creating PR** - Always bump the package version using `uv version --bump <level>` (where level is `major`, `minor`, or `patch`) before creating a pull request to main. This ensures the version is updated in `pyproject.toml` and `uv.lock`
+7. When ready, create a pull request for review
 
 # CLAUDE.md Maintenance
 **IMPORTANT**: This CLAUDE.md file should be kept up-to-date as the project evolves. When making significant changes to tooling, workflows, or project structure, update the relevant sections in this file. This ensures future AI assistance remains consistent with project conventions.
