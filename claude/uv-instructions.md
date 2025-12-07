@@ -6,7 +6,7 @@ uv add package-name              # Add dependencies
 uv remove package-name           # Remove dependencies
 uv sync                          # Sync dependencies
 uv run pytest                    # Run tests
-uv run mkdocs serve              # Preview docs
+uv run zensical serve            # Preview docs
 uv version --bump patch          # For backwards compatible bug fixes
 uv version --bump minor          # For backwards compatible new features
 uv version --bump major          # For incompatible API changes
