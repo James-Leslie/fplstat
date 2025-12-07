@@ -70,13 +70,14 @@ def sample_fixture(fixtures_data):
 
 
 def test_fixture_model(sample_fixture):
-    """Test that a sample fixture from live API data validates against Fixture model"""
-    # This will raise ValidationError if structure doesn't match
-    fixture = Fixture.model_validate(sample_fixture)
-    assert isinstance(fixture, Fixture)
-    assert hasattr(fixture, "team_h")
-    assert hasattr(fixture, "team_a")
-    assert hasattr(fixture, "kickoff_time")
+    """Test that a sample fixture from live API data is a valid Fixture model"""
+    # The `sample_fixture` is already a `Fixture` instance, as Pydantic
+    # validation occurs within the `APIClient`. This test verifies the
+    # instance type and presence of key attributes.
+    assert isinstance(sample_fixture, Fixture)
+    assert hasattr(sample_fixture, "team_h")
+    assert hasattr(sample_fixture, "team_a")
+    assert hasattr(sample_fixture, "kickoff_time")
 
 
 def test_get_fixtures():
@@ -91,6 +92,5 @@ def test_get_fixtures():
     assert len(fixtures_df) > 0
 
     # Check it has expected columns
-    expected_columns = ["team_h", "team_a", "kickoff_time", "finished"]
-    for col in expected_columns:
-        assert col in fixtures_df.columns
+    expected_columns = {"team_h", "team_a", "kickoff_time", "finished"}
+    assert expected_columns.issubset(fixtures_df.columns)
