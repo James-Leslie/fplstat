@@ -20,7 +20,7 @@ The project relies on several command-line tools. Keep these tools up-to-date to
 
 | Tool | Current Version | Last Updated | Purpose |
 |------|----------------|--------------|---------|
-| `uv` | 0.8.4 | 2025-07-30 | Python package & dependency management |
+| `uv` | 0.9.16 | 2025-12-06 | Python package & dependency management |
 | `gh` | 2.83.1 | 2025-11-13 | GitHub CLI for PRs, issues, and releases |
 | `git` | 2.39.5+ | - | Version control |
 
