@@ -32,9 +32,14 @@ class FPLStat:
         players = transform_players(self.raw_data.elements)
         return players
 
-    def get_fixtures(self):
-        """Returns list of fixtures"""
-        pass
+    def get_fixtures(self) -> pd.DataFrame:
+        """Get all fixtures for the season
+
+        Returns:
+            pd.DataFrame: A DataFrame containing fixture data.
+        """
+        fixtures_response = self.api.get_fixtures()
+        return pd.DataFrame([f.model_dump() for f in fixtures_response.fixtures])
 
     def get_fixture_difficulty_matrix(self):
         """Returns fixture difficulty matrix"""

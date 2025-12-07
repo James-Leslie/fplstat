@@ -1,5 +1,5 @@
 from .bootstrap.bootstrap import BootstrapStaticResponse
 from .bootstrap.element import Element
-from .fixtures import FixturesResponse
+from .fixtures import Fixture, FixturesResponse
 
-__all__ = ["BootstrapStaticResponse", "FixturesResponse", "Element"]
+__all__ = ["BootstrapStaticResponse", "FixturesResponse", "Element", "Fixture"]
