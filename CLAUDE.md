@@ -15,6 +15,18 @@ Use `uv` for everything related to project and dependency management (i.e. no `p
 
 Additional instructions can be found in @claude/uv-instructions.md.
 
+## CLI Tools
+The project relies on several command-line tools. Keep these tools up-to-date to avoid compatibility issues and bugs.
+
+| Tool | Current Version | Last Updated | Purpose |
+|------|----------------|--------------|---------|
+| `uv` | 0.8.4 | 2025-07-30 | Python package & dependency management |
+| `gh` | 2.83.1 | 2025-11-13 | GitHub CLI for PRs, issues, and releases |
+| `git` | 2.39.5+ | - | Version control |
+
+**Maintenance Tips:**
+- Check for updates regularly, especially if encountering errors with CLI commands
+
 ## Testing
 Pytest is used for testing. Aim for high test coverage, especially for core functionality. Tests should be located in the `tests/` directory and follow a clear naming convention.
 
