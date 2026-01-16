@@ -40,13 +40,13 @@ IMPORTANT: Follow this sequence for ALL development tasks
 - Work through plan items sequentially
 - After completing each item:
    - Ensure code is formatted: `uvx ruff format <file>`
-   - Run tests if applicable: `uvx pytest <relevant_tests>`
+   - Run tests if applicable: `uv run pytest <relevant_tests>`
    - Create a focused commit: `git add <files> && git commit -m "<clear message>"`
    - Repeat until all items complete
 
 3. **Finalization**:
 - Review and update @docs if needed
-- Run full test suite: `uvx pytest`
+- Run full test suite: `uv run pytest`
 - Push branch: `git push origin <branch-name>`
 - Open a Pull Request for review: `gh pr create `
 
