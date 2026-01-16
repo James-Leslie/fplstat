@@ -9,6 +9,7 @@ class FPLStat:
         """Initializes the FPLStat client."""
         self.api = APIClient()
         self._raw_data = None
+        self._fixtures_data = None
 
     @property
     def raw_data(self):
@@ -21,6 +22,17 @@ class FPLStat:
             self._raw_data = self.api.get_bootstrap_static()
         return self._raw_data
 
+    @property
+    def fixtures_data(self):
+        """
+        Property to lazily fetch and cache the fixtures data.
+        The data is fetched only on the first access.
+        """
+        if self._fixtures_data is None:
+            # Get fixtures data from fixtures endpoint
+            self._fixtures_data = self.api.get_fixtures()
+        return self._fixtures_data
+
     def get_players(self) -> pd.DataFrame:
         """Get transformed player data
 
@@ -32,9 +44,13 @@ class FPLStat:
         players = transform_players(self.raw_data.elements)
         return players
 
-    def get_fixtures(self):
-        """Returns list of fixtures"""
-        pass
+    def get_fixtures(self) -> pd.DataFrame:
+        """Get all fixtures for the season
+
+        Returns:
+            pd.DataFrame: A DataFrame containing fixture data.
+        """
+        return pd.DataFrame([f.model_dump() for f in self.fixtures_data.fixtures])
 
     def get_fixture_difficulty_matrix(self):
         """Returns fixture difficulty matrix"""
