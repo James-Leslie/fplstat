@@ -35,7 +35,7 @@ IMPORTANT: Follow this sequence for ALL development tasks
 
 ## 2. Implementation
 - Create a new issue if none exists: `gh issue create`
-- ALWAYS create a new branch first: `git checkout`
+- ALWAYS create a new branch first: `git checkout -b <branch-name>`
 - Bump package version using `uv version patch` (or `minor`/`major` as needed)
 - Work through plan items sequentially
 - After completing each item:
