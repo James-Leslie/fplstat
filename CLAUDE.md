@@ -17,7 +17,7 @@ Wherever possible, use the uv CLI for all operations, rather than editing `pypro
  > Reference: [uv Documentation](https://docs.astral.sh/uv/)
 
 ## Documentation
-Zensical, and all of the necessary plugin dependencies, are installed as dev dependencies and managed via `uv`.
+Zensical, and all necessary plugin dependencies, are installed as dev dependencies and managed via `uv`.
 
 The Zensical configuration is in @zensical.toml. This file defines site settings, theme configuration, navigation structure, and plugins.
 
@@ -26,29 +26,29 @@ The Zensical configuration is in @zensical.toml. This file defines site settings
 # Workflow
 IMPORTANT: Follow this sequence for ALL development tasks
 
-## 1. Plan Mode:
+## 1. Plan Mode
 - Look for existing issues or PRs that may relate: `gh issue list` and `gh pr list`
 - Think through edge cases and architecture
 - Ask questions if unclear
 - Break work into small, manageable tasks
 - Present a clear plan
 
-2. **Implementation**:
+## 2. Implementation
 - Create a new issue if none exists: `gh issue create`
 - ALWAYS create a new branch first: `git checkout`
-- Bump package version using `uv version
+- Bump package version using `uv version patch` (or `minor`/`major` as needed)
 - Work through plan items sequentially
 - After completing each item:
-   - Ensure code is formatted: `uvx ruff format <file>`
-   - Run tests if applicable: `uv run pytest <relevant_tests>`
-   - Create a focused commit: `git add <files> && git commit -m "<clear message>"`
-   - Repeat until all items complete
+  - Ensure code is formatted: `uvx ruff format <file>`
+  - Run tests if applicable: `uv run pytest <relevant_tests>`
+  - Create a focused commit: `git add <files> && git commit -m "<clear message>"`
+  - Repeat until all items complete
 
-3. **Finalization**:
+## 3. Finalization
 - Review and update @docs if needed
 - Run full test suite: `uv run pytest`
 - Push branch: `git push origin <branch-name>`
-- Open a Pull Request for review: `gh pr create `
+- Open a Pull Request for review: `gh pr create`
 
 
 ## Git Practices
