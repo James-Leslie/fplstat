@@ -1,5 +1,5 @@
 wrap = "keep"           # Preserve existing line wrapping
-number = false          # Use 1. for all list items (CommonMark style)
+number = true           # Use consecutive numbering for list items
 end_of_line = "lf"      # Unix-style line endings
 exclude = [
     ".venv/**",         # Virtual environment
