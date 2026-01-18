@@ -61,7 +61,7 @@ Clean sheet probability is estimated from expected goals conceded (xGC) using th
 
 ### Defensive Contributions
 
-The FPL game awards bonus points for defensive actions (clearances, blocks, interceptions). The calculation differs by position:
+FPL awards regular points for defensive actions (clearances, blocks, interceptions). The calculation differs by position:
 
 - **Defenders**: 2 points per 10 defensive contributions
 - **Midfielders & Forwards**: 2 points per 12 defensive contributions
