@@ -53,7 +53,7 @@ IMPORTANT: Follow this sequence for ALL development tasks
 - Bump package version using `uv version patch` (or `minor`/`major` as needed)
 - Work through plan items sequentially
 - After completing each item:
-    - Ensure Python code is formatted: `uvx ruff format <file>`
+    - Ensure Python code is formatted: `uv run ruff format <file>`
     - Ensure markdown is formatted: `uv run mdformat <file.md>`
     - Run tests if applicable: `uv run pytest <relevant_tests>`
     - Create a focused commit: `git add <files> && git commit -m "<clear message>"`
