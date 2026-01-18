@@ -44,9 +44,9 @@ fi
 ## Step 5: Create and Merge PR
 
 1. Create a PR for the version bump:
-   ```bash
-   gh pr create --title "Release v<new-version>" --body "Bump version for release v<new-version>"
-   ```
+    ```bash
+    gh pr create --title "Release v<new-version>" --body "Bump version for release v<new-version>"
+    ```
 1. Wait for PR approval and merge (or merge immediately if appropriate)
 1. Switch back to main and pull: `git checkout main && git pull`
 
