@@ -1,0 +1,8 @@
+wrap = "keep"           # Preserve existing line wrapping
+number = false          # Use 1. for all list items (CommonMark style)
+end_of_line = "lf"      # Unix-style line endings
+exclude = [
+    "docs/**",          # Uses Zensical tabbed syntax
+    ".venv/**",         # Virtual environment
+    ".pytest_cache/**", # Pytest cache
+]
