@@ -28,8 +28,8 @@ The Zensical configuration is in @zensical.toml. This file defines site settings
 
 ## Markdown
 
-- Format markdown files: `uvx --with mdformat-frontmatter --with mdformat-mkdocs mdformat <file.md>`
-- Check without modifying: `uvx --with mdformat-frontmatter --with mdformat-mkdocs mdformat --check <file.md>`
+- Format markdown files: `uv run mdformat <file.md>`
+- Check without modifying: `uv run mdformat --check <file.md>`
 - Configuration is in `.mdformat.toml`
 
 > Reference: [mdformat Documentation](https://mdformat.readthedocs.io/)
@@ -54,7 +54,7 @@ IMPORTANT: Follow this sequence for ALL development tasks
 - Work through plan items sequentially
 - After completing each item:
     - Ensure Python code is formatted: `uvx ruff format <file>`
-    - Ensure markdown is formatted: `uvx --with mdformat-frontmatter --with mdformat-mkdocs mdformat <file.md>`
+    - Ensure markdown is formatted: `uv run mdformat <file.md>`
     - Run tests if applicable: `uv run pytest <relevant_tests>`
     - Create a focused commit: `git add <files> && git commit -m "<clear message>"`
     - Repeat until all items complete
