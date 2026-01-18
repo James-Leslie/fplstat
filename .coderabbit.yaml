@@ -1,0 +1,10 @@
+language: "en-GB"
+
+reviews:
+  auto_review:
+    enabled: true
+    drafts: false
+
+tools:
+  markdownlint:
+    enabled: false      # Disable to avoid conflicts with mdformat

@@ -1,4 +1,5 @@
 # FPLstat
+
 Python package for Fantasy Premier League data analysis and transformations
 
 ```bash
