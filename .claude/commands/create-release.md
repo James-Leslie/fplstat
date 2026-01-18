@@ -1,3 +1,8 @@
+---
+argument-hint: [patch|minor|major]
+description: Create a new release
+---
+
 Please help me create a new release for this package.
 
 Follow these steps exactly:
@@ -8,7 +13,7 @@ Follow these steps exactly:
 3. Run tests to ensure everything passes: `uv run pytest`
 
 ## Step 2: Determine Version Bump
-Ask me what type of release this is:
+If a version bump type was provided as an argument (`$1`), use it. Otherwise, ask me what type of release this is:
 - `patch` - Bug fixes only (0.2.0 → 0.2.1)
 - `minor` - New features, backwards compatible (0.2.0 → 0.3.0)
 - `major` - Breaking changes (0.2.0 → 1.0.0)
