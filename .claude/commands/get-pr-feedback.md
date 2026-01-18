@@ -1,9 +1,14 @@
-Please help me address the comments on the PR for this branch.
+---
+argument-hint: [pr-number]
+description: Address comments on a pull request
+---
+
+Please help me address the comments on a PR.
 
 Follow these steps:
 
 1. In plan mode:
-  1. Get the PR number for the active branch: `gh pr list --head $(git branch --show-current) --json number`
+  1. If a PR number was provided as an argument (`$1`), use it. Otherwise, get the PR number for the active branch: `gh pr list --head $(git branch --show-current) --json number`
   2. Get unresolved review threads using GraphQL (replace OWNER, REPO, PR_NUMBER):
      ```
      gh api graphql -f query='{ repository(owner: "OWNER", name: "REPO") { pullRequest(number: PR_NUMBER) { reviewThreads(first: 100) { nodes { isResolved path line comments(first: 10) { nodes { body author { login } } } } } } } }' --jq '.data.repository.pullRequest.reviewThreads.nodes | map(select(.isResolved == false))'
