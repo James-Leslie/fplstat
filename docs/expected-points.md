@@ -9,6 +9,7 @@ Expected Points (xP) is a metric that quantifies how many Fantasy Premier League
 ## Philosophy
 
 Just like Expected Goals (xG):
+
 - xP is **retrospective**, not predictive
 - It measures the quality of opportunities and situations
 - It uses underlying "expected" metrics (xG, xA, xGC) rather than actual outcomes
@@ -19,18 +20,22 @@ Just like Expected Goals (xG):
 The xP calculation applies all official FPL scoring rules to expected and actual statistics:
 
 ### Appearance Points
+
 - **1 point** for every game played
 - **+1 point** for starts (60+ minutes)
 
 ### Goals (Position-dependent)
+
 - **Goalkeepers & Defenders**: 6 points per expected goal
 - **Midfielders**: 5 points per expected goal
 - **Forwards**: 4 points per expected goal
 
 ### Assists
+
 - **All positions**: 3 points per expected assist
 
 ### Clean Sheets
+
 Clean sheet probability is estimated from expected goals conceded (xGC) using the Poisson distribution:
 
 - **Probability**: `e^(-xGC)` (Poisson probability of zero goals)
@@ -39,19 +44,23 @@ Clean sheet probability is estimated from expected goals conceded (xGC) using th
 - **Forwards**: 0 points
 
 **Example probabilities:**
+
 - xGC = 0.5 → ~61% clean sheet chance → 2.4 points (GK/DEF)
 - xGC = 1.0 → ~37% clean sheet chance → 1.5 points (GK/DEF)
 - xGC = 2.0 → ~14% clean sheet chance → 0.5 points (GK/DEF)
 
 ### Goals Conceded
+
 - **Goalkeepers & Defenders**: -0.5 points per expected goal conceded
 - **Midfielders & Forwards**: 0 points
 
 ### Saves
+
 - **Goalkeepers only**: 1 point per 3 saves (actual saves)
 - **Other positions**: 0 points
 
 ### Defensive Contributions
+
 The FPL game awards bonus points for defensive actions (clearances, blocks, interceptions). The calculation differs by position:
 
 - **Defenders**: 2 points per 10 defensive contributions
@@ -59,15 +68,18 @@ The FPL game awards bonus points for defensive actions (clearances, blocks, inte
 - **Goalkeepers**: 0 points (not included in this metric)
 
 ### Penalties
+
 - **Penalty saves**: +5 points (actual)
 - **Penalty misses**: -2 points (actual)
 
 ### Disciplinary
+
 - **Yellow cards**: -1 point (actual)
 - **Red cards**: -3 points (actual)
 - **Own goals**: -2 points (actual)
 
 ### Bonus Points
+
 - Actual bonus points earned (no expected metric available)
 
 ## Formula
@@ -97,16 +109,19 @@ xP = (
 ## Interpretation
 
 ### xP > Actual Points
+
 Player has been unlucky or finishing below expectation. They may be due for positive regression.
 
 **Example**: A forward with 2.5 xG but only 1 actual goal has underperformed their xP.
 
 ### xP < Actual Points
+
 Player has been lucky or finishing above expectation. They may regress toward their xP.
 
 **Example**: A midfielder scoring from two low-quality chances (0.5 combined xG) has overperformed their xP.
 
 ### xP ≈ Actual Points
+
 Player's output matches the quality of their chances - sustainable performance.
 
 ## Per-90 Version
@@ -122,10 +137,10 @@ This allows fair comparison between players with different amounts of playing ti
 ## Limitations
 
 1. **Bonus points** use actual values (no expected bonus metric exists)
-2. **Disciplinary actions** use actual cards (difficult to model expected cards)
-3. **Penalties, saves, own goals** use actual values (rare events, small samples)
-4. **Clean sheet estimation** uses Poisson distribution (assumes goals follow Poisson process)
-5. **Defensive contribution** formula is specific to FPL's implementation
+1. **Disciplinary actions** use actual cards (difficult to model expected cards)
+1. **Penalties, saves, own goals** use actual values (rare events, small samples)
+1. **Clean sheet estimation** uses Poisson distribution (assumes goals follow Poisson process)
+1. **Defensive contribution** formula is specific to FPL's implementation
 
 ## Use Cases
 
