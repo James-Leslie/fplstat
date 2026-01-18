@@ -1,6 +1,10 @@
+---
+description: Commit unstaged changes with proper workflow
+---
+
 Please help me commit unstaged changes to the git repository.
 
-Follow these steps exactly, with no deviations:
+Follow these steps exactly:
 
 1. Ensure we are on a safe branch (e.g., not on 'main' or 'master').
 2. Check the format and quality of the code using linters or formatters as needed.
