@@ -21,11 +21,12 @@ If a version bump type was provided as an argument (`$1`), use it. Otherwise, as
 ## Step 3: Review Changes Since Last Release
 Check what has changed since the last release to help determine version type and release notes:
 ```bash
-# If tags exist, show commits since last tag
-git log $(git describe --tags --abbrev=0 2>/dev/null || echo "")..HEAD --oneline
-
-# If no tags exist, show recent commits
-git log --oneline -20
+# If tags exist, show commits since last tag; otherwise, show recent commits
+if git describe --tags --abbrev=0 >/dev/null 2>&1; then
+  git log "$(git describe --tags --abbrev=0)"..HEAD --oneline
+else
+  git log --oneline -20
+fi
 ```
 
 ## Step 4: Create Release Branch and Bump Version
