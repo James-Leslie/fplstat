@@ -10,8 +10,8 @@ Follow these steps exactly:
 ## Step 1: Verify Prerequisites
 
 1. Ensure we are on the `main` branch with a clean working directory
-1. Pull the latest changes: `git pull origin main`
-1. Run tests to ensure everything passes: `uv run pytest`
+2. Pull the latest changes: `git pull origin main`
+3. Run tests to ensure everything passes: `uv run pytest`
 
 ## Step 2: Determine Version Bump
 
@@ -37,9 +37,9 @@ fi
 ## Step 4: Create Release Branch and Bump Version
 
 1. Create a release branch: `git checkout -b release/v<new-version>`
-1. Bump the version: `uv version --bump <level>`
-1. Commit the version bump: `git add pyproject.toml uv.lock && git commit -m "Bump version to <new-version>"`
-1. Push the branch: `git push -u origin release/v<new-version>`
+2. Bump the version: `uv version --bump <level>`
+3. Commit the version bump: `git add pyproject.toml uv.lock && git commit -m "Bump version to <new-version>"`
+4. Push the branch: `git push -u origin release/v<new-version>`
 
 ## Step 5: Create and Merge PR
 
@@ -47,8 +47,8 @@ fi
     ```bash
     gh pr create --title "Release v<new-version>" --body "Bump version for release v<new-version>"
     ```
-1. Wait for PR approval and merge (or merge immediately if appropriate)
-1. Switch back to main and pull: `git checkout main && git pull`
+2. Wait for PR approval and merge (or merge immediately if appropriate)
+3. Switch back to main and pull: `git checkout main && git pull`
 
 ## Step 6: Create GitHub Release
 
@@ -67,8 +67,8 @@ gh release create v<new-version> --generate-notes --title "v<new-version>" --not
 ## Step 7: Verify Release
 
 1. Check that the GitHub Actions workflow started: `gh run list --workflow=deploy-package.yml`
-1. Monitor the workflow: `gh run watch`
-1. Verify the package is published on PyPI
+2. Monitor the workflow: `gh run watch`
+3. Verify the package is published on PyPI
 
 ## Important Notes
 

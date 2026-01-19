@@ -137,10 +137,10 @@ This allows fair comparison between players with different amounts of playing ti
 ## Limitations
 
 1. **Bonus points** use actual values (no expected bonus metric exists)
-1. **Disciplinary actions** use actual cards (difficult to model expected cards)
-1. **Penalties, saves, own goals** use actual values (rare events, small samples)
-1. **Clean sheet estimation** uses Poisson distribution (assumes goals follow Poisson process)
-1. **Defensive contribution** formula is specific to FPL's implementation
+2. **Disciplinary actions** use actual cards (difficult to model expected cards)
+3. **Penalties, saves, own goals** use actual values (rare events, small samples)
+4. **Clean sheet estimation** uses Poisson distribution (assumes goals follow Poisson process)
+5. **Defensive contribution** formula is specific to FPL's implementation
 
 ## Use Cases
 
