@@ -5,7 +5,15 @@ import pytest
 
 from fplstat import FPLStat
 from fplstat.api import APIClient
-from fplstat.api.models import BootstrapStaticResponse, Element, Fixture
+from fplstat.api.models import (
+    BootstrapStaticResponse,
+    Element,
+    ElementType,
+    Event,
+    Fixture,
+    FixtureStat,
+    Team,
+)
 
 
 @pytest.fixture(scope="session")
@@ -94,3 +102,62 @@ def test_get_fixtures():
     # Check it has expected columns
     expected_columns = {"team_h", "team_a", "kickoff_time", "finished"}
     assert expected_columns.issubset(fixtures_df.columns)
+
+
+@pytest.fixture
+def sample_team(bootstrap_static_data):
+    """Get a real team from live API data"""
+    return bootstrap_static_data.teams[0]
+
+
+def test_team_model(sample_team):
+    """Test that a sample team from live API data validates against Team model"""
+    assert isinstance(sample_team, Team)
+    assert hasattr(sample_team, "name")
+    assert hasattr(sample_team, "short_name")
+    assert hasattr(sample_team, "strength")
+
+
+@pytest.fixture
+def sample_event(bootstrap_static_data):
+    """Get a real event from live API data"""
+    return bootstrap_static_data.events[0]
+
+
+def test_event_model(sample_event):
+    """Test that a sample event from live API data validates against Event model"""
+    assert isinstance(sample_event, Event)
+    assert hasattr(sample_event, "name")
+    assert hasattr(sample_event, "deadline_time")
+    assert hasattr(sample_event, "finished")
+
+
+@pytest.fixture
+def sample_element_type(bootstrap_static_data):
+    """Get a real element type from live API data"""
+    return bootstrap_static_data.element_types[0]
+
+
+def test_element_type_model(sample_element_type):
+    """Test that a sample element type validates against ElementType model"""
+    assert isinstance(sample_element_type, ElementType)
+    assert hasattr(sample_element_type, "singular_name")
+    assert hasattr(sample_element_type, "plural_name")
+    assert hasattr(sample_element_type, "squad_select")
+
+
+def test_fixture_stat_model(fixtures_data):
+    """Test that fixture stats from live API data validate against FixtureStat model"""
+    # Find a finished fixture with stats
+    finished_fixtures = [f for f in fixtures_data.fixtures if f.finished]
+    if not finished_fixtures:
+        pytest.skip("No finished fixtures available for testing stats")
+
+    fixture = finished_fixtures[0]
+    assert isinstance(fixture.stats, list)
+    if fixture.stats:
+        stat = fixture.stats[0]
+        assert isinstance(stat, FixtureStat)
+        assert hasattr(stat, "identifier")
+        assert hasattr(stat, "a")
+        assert hasattr(stat, "h")
