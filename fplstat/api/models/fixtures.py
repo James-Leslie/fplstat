@@ -1,7 +1,26 @@
 from datetime import datetime
-from typing import Any, Dict, List, Union
+from typing import List, Union
 
 from pydantic import BaseModel, ConfigDict
+
+
+class FixtureStatValue(BaseModel):
+    """Model for a single stat value (goal, assist, etc.) in a fixture"""
+
+    model_config = ConfigDict(extra="allow")
+
+    value: int
+    element: int
+
+
+class FixtureStat(BaseModel):
+    """Model for fixture statistics (goals, assists, etc.)"""
+
+    model_config = ConfigDict(extra="allow")
+
+    identifier: str
+    a: List[FixtureStatValue]  # Away team stats
+    h: List[FixtureStatValue]  # Home team stats
 
 
 class Fixture(BaseModel):
@@ -19,7 +38,7 @@ class Fixture(BaseModel):
     provisional_start_time: bool
     pulse_id: int
     started: bool
-    stats: List[Dict[str, Any]]
+    stats: List[FixtureStat]
     team_a: int
     team_a_difficulty: int
     team_a_score: Union[int, None]
