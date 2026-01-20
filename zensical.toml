@@ -7,8 +7,14 @@ repo_url = "https://github.com/James-Leslie/fplstat"
 repo_name = "James-Leslie/fplstat"
 nav = [
     # Read more: https://zensical.org/docs/setup/navigation/
-    { "Get started" = "index.md" },
-    { "User guide" = "guides.md" },
+    { "Getting started" = "index.md" },
+    { "User guide" = [
+        "user_guide/index.md",
+        "user_guide/players.md",
+        "user_guide/fixtures.md",
+        "user_guide/raw-api.md",
+        "user_guide/error-handling.md",
+    ]},
     { "Column reference" = "columns.md" },
     { "Expected Points (xP)" = "expected-points.md" },
     { "FPL API reference" = "data-reference.md" },
