@@ -1,4 +1,4 @@
-# Usage Guides
+# User Guide
 
 This guide covers common operations and usage patterns for FPLstat.
 
